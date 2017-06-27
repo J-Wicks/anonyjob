@@ -12,8 +12,8 @@ class EmployerDashboardContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      jobTitle: '',
-      jobDescription: '',
+      positionTitle: '',
+      positionDescription: '',
       educationField: '',
       educationLevel: '',
       experienceField: '',
@@ -25,19 +25,33 @@ class EmployerDashboardContainer extends Component {
 	this.handleEducationLevel = this.handleEducationLevel.bind(this);
 	this.handleExperienceField = this.handleExperienceField.bind(this);
 	this.handleExperienceLevel = this.handleExperienceLevel.bind(this);
+	this.handleSubmit = this.handleSubmit.bind(this)
   }
+
+  	handleSubmit (event) {
+  		event.preventDefault()
+  		
+  		this.props.addPosting({
+  			positionTitle: this.state.positionTitle,
+  			positionDescription: this.state.positionDescription,
+  			educationField: this.state.educationField,
+  			educationLevel: this.state.educationLevel,
+  			experienceField: this.state.experienceField,
+  			experienceLevel: this.state.experienceLevel
+  		})
+  	}
 
 	handleJobTitle (event) {
 		const value = event.target.value;
 		this.setState({
-			jobTitle: value
+			positionTitle: value
 		})
 	}
 
 	handleJobDescription (event) {
 		const value = event.target.value;
 		this.setState({
-			jobDescription: value
+			positionDescription: value
 		})
 	}
 
@@ -77,6 +91,7 @@ class EmployerDashboardContainer extends Component {
       handleEducationLevel={this.handleEducationLevel}
 	  handleExperienceField={this.handleExperienceField}
 	  handleExperienceLevel={this.handleExperienceLevel}
+	  submitHandler={this.handleSubmit}
       />
       </div>
     )
@@ -89,4 +104,24 @@ const mapStateToProps = function(state){
   }
 }
 
-export default connect(mapStateToProps)(EmployerDashboardContainer)
+const mapDispatchToProps = function (dispatch) {
+	return {
+		addPosting: (user) => {
+			axios.post('/api/postings',{
+				positionTitle: user.positionTitle,
+				positionDescription: user.positionDescription,
+				educationLevel: user.educationLevel,
+				educationField: user.educationField,
+				experienceLevel: user.experienceLevel,
+				experienceField: user.experienceField 
+			})
+			.then((result) => {
+				console.log(result.data)
+				// return dispatch(modPosting(result.data))
+
+			}).catch(console.log)
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployerDashboardContainer)

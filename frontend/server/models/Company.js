@@ -69,4 +69,4 @@ function setSaltAndPassword (company) {
 
 
 
-module.exports = Users;
+module.exports = Company;

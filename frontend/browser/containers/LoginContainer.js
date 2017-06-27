@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Login from '../components/Login';
+import EmployerLogin from '../components/employerLogin';
 import {connect} from 'react-redux';
 import { loginUser } from '../action-creators';
 import { hashHistory } from 'react-router'
@@ -73,7 +73,7 @@ class LoginContainer extends Component{
 	}
 
 	render () {
-		return(<Login loginUser={this.loginUser} handleLast={this.handleLast} handleFirst={this.handleFirst} signUpUser={this.signUpUser} handleEmail={this.handleEmail} googleLogin={this.googleLogin} handlePassword={this.handlePassword} />
+		return(<EmployerLogin loginUser={this.loginUser} handleLast={this.handleLast} handleFirst={this.handleFirst} signUpUser={this.signUpUser} handleEmail={this.handleEmail} googleLogin={this.googleLogin} handlePassword={this.handlePassword} />
 		)
 	}
 

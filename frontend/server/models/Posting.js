@@ -12,7 +12,7 @@ const Posting = db.define('posting', {
 		allowNull: false,
 	},
 	educationLevel: {
-		type: Sequelize.ENUM('Some High School', 'High School Diploma or Equivalent', 'Some College', 'B.A.', 'B.S.', 'M.S.', 'Ph.D.')
+		type: Sequelize.ENUM('Some High School', 'High School Diploma or Equivalent', 'Some College', 'B.A.', 'B.S.', 'M.S.')
 	},
 	educationField: {
 		type: Sequelize.ENUM('Computer Science', 'Education', 'Physics', 'Media Studies')
