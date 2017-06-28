@@ -7,7 +7,7 @@ const Company = require('./Company')
 
 
 //Associate application with user. User has zero to many applications.
-Application.belongsTo(User(Products);
+Application.belongsTo(User);
 User.hasMany(Application);
 
 //Associate posting with company. Company has zero to many postings.

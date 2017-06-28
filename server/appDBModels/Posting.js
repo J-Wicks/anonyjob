@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../db').anonyjobsDB;
 const Sequelize = require('sequelize');
 
 const Posting = db.define('posting', {

@@ -1,4 +1,4 @@
-const db = require('../db.js')
+const db = require('../db.js').writingSamplesDB
 const Sequelize = require('sequelize')
 
 const User = db.define('user', {

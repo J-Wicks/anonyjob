@@ -1,7 +1,12 @@
 const Sequelize = require('sequelize')
 
-const db = new Sequelize( process.env.DATABASE_URL || 'postgres://localhost:5432/writingsamples', {
+const writingSamplesDB = new Sequelize( process.env.DATABASE_URL || 'postgres://localhost:5432/writingsamples', {
 	logging: false
 })
 
-module.exports = db
+const anonyjobsDB = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/anonyjobs-app', {
+  logging: false
+});
+
+
+module.exports = {writingSamplesDB, anonyjobsDB}

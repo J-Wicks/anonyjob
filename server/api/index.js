@@ -1,79 +1,39 @@
+// const router = require('express').Router();
+//
+// router.use('/applications', require('./applications'));
+// router.use('/companies', require('./companies'));
+// router.use('/postings', require('./postings'));
+// router.use('/login', require("./login"));
+// router.use('/auth', require('./auth'));
+// router.use('/users', require('./users')); // matches all requests to /api/users/
+//
+// router.use(function (req, res, next) {
+//   const err = new Error('Not found.');
+//   err.status = 404;
+//   next(err);
+// });
+//
+// module.exports = router;
+
+
 const router = require('express').Router();
-const User = require('../models').User
-const Gender = require('../models').Gender
-const Orientation = require('../models').Orientation
-const Race = require('../models').Race
 
 router.get('/', function(req, res, next){
 	res.status(200).send('good job hitting the route, but i\'m not going to send you any of our user data')
 })
 
-router.get('/allData', function(req, res, next) {
-	User.findAll(
-		{include:
-	[{model: Gender}, {model: Race}, {model: Orientation}]
-	})
-.then(foundUsers => {
-	const usersPack = []
-	foundUsers.forEach( user => {
+router.use('/writing-samples', require('./writing-samples'))
+router.use('/applications', require('./applications'));
+router.use('/companies', require('./companies'));
+router.use('/users', require('./users')); // matches all requests to /api/users/
+router.use('/postings', require('./postings'));
+router.use('/login', require("./login"));
+// router.use('/auth', require('./auth'));
+//
+// router.use('/', function (req, res, next) {
+//   const err = new Error('Not found.');
+//   err.status = 404;
+//   next(err);
+// });
 
-		let newUser ={
-			gender: user.gender.name,
-			orientation: user.orientation.name,
-			race: user.race.name,
-			writing: user.writing
-		}
-		usersPack.push(newUser)
-	})
-
-	res.status(200).json(usersPack)
-	})
-	.catch( err => {
-		res.send(err)
-	})
-})
-
-router.get('/gender', function(req, res, next){
-	Gender.findAll()
-	.then( foundGenders => {
-		res.send(foundGenders)
-	})
-})
-
-router.get('/race', function(req, res, next){
-	Race.findAll()
-	.then( foundRaces => {
-		res.send(foundRaces)
-	})
-})
-
-router.get('/orientation', function(req, res, next){
-	Orientation.findAll()
-	.then( foundOrientations => {
-		res.send(foundOrientations)
-	})
-})
-
-router.post('/', (req, res, next) => {
-	User.create({
-		age: req.body.age,
-		race: req.body.race,
-		writing: req.body.writingSample,
-	})
-	.then( createdUser => {
-		Gender.findOrCreate({where: {name: req.body.gender}})
-		.spread( (gender, created) => {
-			gender.addUser(createdUser)
-		})
-		Orientation.findOrCreate({where: {name: req.body.orientation}})
-		.spread( (orientation, created) => {
-			orientation.addUser(createdUser)
-		})
-		Race.findOrCreate({where: {name: req.body.race}})
-		.spread ((race, created)=>{
-			race.addUser(createdUser)
-		})
-	})
-	res.status(200).send('Database Row Added')
-})
 module.exports = router

@@ -1,10 +1,10 @@
-const db = require('../db');
+const db = require('../db').anonyjobsDB;
 const Sequelize = require('sequelize');
 const crypto = require('crypto')
 const _ = require('lodash');
 
-var Users = db.define('Users', {
-	email: {
+var Company = db.define('company', {
+	HRemail: {
 		type: Sequelize.STRING,
 		allowNull: false,
 		unique: true,
@@ -21,12 +21,18 @@ var Users = db.define('Users', {
 	salt: {
 		type: Sequelize.STRING
 	},
-	firstName: {
+	companyName: {
 		type: Sequelize.STRING
 	},
-	lastName: {
+	industry: {
 		type: Sequelize.STRING
 	},
+	hrFirstName: {
+		type: Sequelize.STRING
+	},
+	hrLastName: {
+		type: Sequelize.STRING
+	}
 },{
 	instanceMethods: {
 		sanitize: function () {
@@ -54,13 +60,13 @@ var Users = db.define('Users', {
 	}
 })
 
-function setSaltAndPassword (user) {
-	if (user.changed('password')) {
-    user.salt = user.Model.generateSalt();
-    user.password = user.Model.encryptPassword(user.password, user.salt);
+function setSaltAndPassword (company) {
+	if (company.changed('password')) {
+    company.salt = company.Model.generateSalt();
+    company.password = company.Model.encryptPassword(company.password, company.salt);
   }
 }
 
 
 
-module.exports = Users;
+module.exports = Company;

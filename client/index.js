@@ -13,7 +13,7 @@ import HomeContainer from './containers/HomeContainer';
 import EmployerDashboardContainer from './containers/EmployerDashboardContainer';
 
 ReactDOM.render(
-	<Provider store={store}> 
+	<Provider store={store}>
 	  	<Router history = {hashHistory}>
 
 	  		<Route path='/' component={AppContainer} >
